@@ -1,0 +1,66 @@
+== microprofile-rest-client
+:idprefix: id_ 
+This addon provides *standalone* functionality.
+        
+=== Dependencies: None (or)
+=== Depends on
+[options="header"]
+|===
+|Addon |Exported |Optional
+|org.jboss.forge.furnace.container:cdi
+|yes
+|no
+|org.jboss.forge.addon:microprofile-config
+|yes
+|no
+|===
+
+== Setup
+
+This Addon requires the following installation steps.
+
+=== Add configuration to pom.xml 
+
+To use this addon, you must add it as a dependency in the *pom.xml* of your `forge-addon` classified artifact:
+(Make sure the dependency is put all the way to the left, and uses 3 spaces for indentation of GAV)
+[source,xml]
+----
+<dependency>
+   <groupId>org.jboss.forge.addon</groupId>
+   <artifactId>microprofile-rest-client</artifactId>
+   <classifier>forge-addon</classifier>
+   <version>${version}</version>
+</dependency>
+----
+== Features
+Injection of @RestClient:: 
+This addon allows to inject Microprofile Rest Clients
++
+[source,java]
+----
+@Inject 
+@RestClient
+private SomeResource someResource;
+
+String c = someResource.getContent();
+----
+
++
+[source,java]
+----
+@RegisterRestClient(configKey = "SomeResource")
+public interface SomeResource {
+
+    @GET
+    @Path("/content")
+    public String getContent();
+
+}
+----
+
+
++
+[source]
+----
+SomeResource/mp-rest/url=http://localhost:8181
+----
