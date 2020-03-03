@@ -85,7 +85,7 @@
       <groupId>org.jboss.forge.addon</groupId>
       <artifactId>microprofile-config</artifactId>
       <classifier>forge-addon</classifier>
-      <version>1.0.2-SNAPSHOT</version>
+      <version>1.0.2.Final</version>
     </dependency>
     <dependency>
       <groupId>org.jboss.resteasy</groupId>
