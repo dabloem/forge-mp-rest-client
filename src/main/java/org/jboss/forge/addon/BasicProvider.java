@@ -1,8 +1,6 @@
 package org.jboss.forge.addon;
 
 import java.io.IOException;
-import java.nio.charset.Charset;
-import java.util.Base64;
 import java.util.Optional;
 
 import javax.ws.rs.client.ClientRequestContext;
@@ -19,25 +17,18 @@ import org.eclipse.microprofile.config.ConfigProvider;
 @Provider
 public class BasicProvider implements ClientRequestFilter {
 
-    private static final String USERNAME = "security.basic.user";
-    private static final String PASSWORD = "security.basic.pwd";
+    private static final String CREDENTIAL = "security.basic.credential";
 
 	@Override
 	public void filter(ClientRequestContext ctx) throws IOException {
         Config config = ConfigProvider.getConfig();
 
         Optional<String> iss = config.getOptionalValue("security.basic.iss", String.class);
+        Optional<String> credential = config.getOptionalValue(getKey(CREDENTIAL, iss), String.class);
 
-        Optional<String> username = config.getOptionalValue(getKey(USERNAME, iss), String.class);
-        Optional<String> password = config.getOptionalValue(getKey(PASSWORD, iss), String.class);
-
-        if (username.isPresent() && password.isPresent()) {
-            String auth = username.get() + ":" + password.get();
-            byte[] encodedAuth = Base64.getEncoder().encode(auth.getBytes(Charset.defaultCharset()));
-            String authHeader = "Basic " + new String( encodedAuth );
-            ctx.getHeaders().add(HttpHeaders.AUTHORIZATION, authHeader);
+        if (credential.isPresent()) {
+            ctx.getHeaders().add(HttpHeaders.AUTHORIZATION, "Basic " + credential.get());
         }		
-		
     }
     
     String getKey(String key, Optional<String> iss) {

@@ -3,7 +3,6 @@ package org.jboss.forge.addon;
 import java.io.IOException;
 import java.util.Optional;
 
-import javax.inject.Inject;
 import javax.ws.rs.client.ClientRequestContext;
 import javax.ws.rs.client.ClientRequestFilter;
 import javax.ws.rs.core.HttpHeaders;
@@ -26,10 +25,8 @@ public class OAuth2Provider implements ClientRequestFilter {
         Config config = ConfigProvider.getConfig();
         
         Optional<String> iss = config.getOptionalValue("security.oauth2.iss", String.class);
-        
         Optional<String> token = config.getOptionalValue(getKey(TOKEN, iss), String.class);
         if (token.isPresent()) {
-            // System.out.println("Bearer " + token.get());
             ctx.getHeaders().add(HttpHeaders.AUTHORIZATION, "Bearer " + token.get());
         }
     }
