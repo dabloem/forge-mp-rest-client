@@ -124,11 +124,6 @@
       <artifactId>arquillian-furnace-classpath</artifactId>
       <scope>test</scope>
     </dependency>
-    <!-- <dependency>
-      <groupId>org.jboss.forge.addon</groupId>
-      <artifactId>core</artifactId>
-      <classifier>forge-addon</classifier>
-    </dependency> -->
   </dependencies>
   <dependencyManagement>
     <dependencies>
