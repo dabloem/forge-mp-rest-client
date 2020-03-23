@@ -1,5 +1,6 @@
 package org.jboss.forge.addon;
 
+import java.net.ProxySelector;
 import java.util.logging.Logger;
 
 import javax.inject.Inject;
@@ -25,6 +26,7 @@ public class ProxyProvider implements RestClientListener {
         Config config = ConfigProvider.getConfig();
         String proxyHost = config.getOptionalValue("proxy.host", String.class).orElse(null);
         Integer proxyPort = config.getOptionalValue("proxy.port", Integer.class).orElse(null);
+        
 
         if (proxyHost != null && proxyPort != null) {
             builder.property("org.jboss.resteasy.jaxrs.client.proxy.host", proxyHost);

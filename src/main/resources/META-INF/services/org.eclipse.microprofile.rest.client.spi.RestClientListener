@@ -1,1 +1,2 @@
+org.jboss.forge.addon.oauth.impl.OAuth2Listener
 org.jboss.forge.addon.ProxyProvider
